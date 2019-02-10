@@ -1,0 +1,10 @@
+{
+  "all_develop": "true",
+  "all_personal": "false",
+  "developer_apps": [
+    "atom",
+    "sourcetree"
+  ],
+  "personal_apps": [
+  ]
+}
