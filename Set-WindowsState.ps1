@@ -1,5 +1,43 @@
 # Install choco
 # TODO make sure this confirms with the user later, right now we're in the wild west
+param (
+
+  # Do developer apps
+  [Parameter(Mandatory = $false)]
+  [switch]
+  $Dev,
+
+  # Do IT apps
+  [Parameter(Mandatory = $false)]
+  [switch]
+  $IT,
+
+  # Do personal apps
+  [Parameter(Mandatory = $false)]
+  [switch]
+  $Personal
+
+)
+
+if ($Dev -or $IT -or $Personal) {
+  $Type = @{
+    Dev      = $false
+    IT       = $false
+    Personal = $false
+  }
+}
+
+if ($Dev) {
+  $Type.Dev = $true
+}
+
+if ($IT) {
+  $Type.IT = $true
+}
+
+if ($Personal) {
+  $Type.Personal = $true
+}
 
 try {
   choco -v
@@ -20,10 +58,15 @@ foreach ($Helper in $HelperFunctions) {
 }
 
 # This is your config.json file which can be anywhere
-$ConfigPath = ./config.json
+$ConfigPath = "./config.json"
 
 # Go through our config.json and determine what needs to be installed
-$PackagesToInstall = Get-PackagesToInstall -ConfigPath ./config.json -Dev -IT -Personal
+if ($Type) {
+  $PackagesToInstall = Get-PackagesToInstall -ConfigPath $ConfigPath @Type
+} else {
+  Write-Error "No types identified"
+  exit(1)
+}
 
 if ($PackagesToInstall) {
   Install-WardChoco -Package $PackagesToInstall
