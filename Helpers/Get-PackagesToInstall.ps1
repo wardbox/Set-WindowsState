@@ -26,7 +26,7 @@ function Get-PackagesToInstall {
     exit(1)
   }
 
-  $Configuration = Get-Content $ConfigPath | ConvertFrom-Json -AsHashtable
+  $Configuration = Get-Content $ConfigPath | ConvertFrom-Json
   $PackagestoInstall = @()
 
   if ($Dev) {
