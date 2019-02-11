@@ -7,17 +7,18 @@ Set-WindowsState
 # Install apps based on user choice
 - Development
   - Terminal emulators
-    - XTerm
+    - XTerm (non-choco)
     - Hyper
     - ConEmu
-    - iTerm2
+    - Cmder
+    - iTerm2 (non-choco)
   - IDE
     - VSCode
     - Sublime Text
     - Atom
     - Notepad++
     - Vagrant
-    - IDE configs
+      - IDE configs
   - Git
     - GUI client
       - GitKraken
@@ -33,24 +34,20 @@ Set-WindowsState
     - .NET Frameworks
   - RDP/SSH tools
   - Virtualization
-    - Hyper-V
+    - Hyper-V (non-choco)
     - Virtualbox
-    - VMWare
+    - VMWare Workstation
     - Docker
+    - Kubernetes
   - Cloud
     - AWS cli
-    - Azure
+    - Azure cli
     - maybe google?
   - CI/Build & Deploy
     - Chef development kit
-    - Octopus maybe?
-    - Jenkins
-    - Appveyor
-    - look into others
   - Database stuff
-    - Mongo
-    - SQL tools?
-    - mysql?
+    - SQL tools
+    - mysql workbench
 - IT
   - RSAT
   - Bluescreenview
@@ -76,7 +73,7 @@ Set-WindowsState
     - WinSCP
     - Everything Search
     - Ethervane Echo
-    - Notational Velocity
+    - Notational Velocity (non-choco)
   - Storage
     - Dropbox
     - Google drive

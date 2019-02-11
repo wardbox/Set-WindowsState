@@ -22,4 +22,8 @@ foreach ($Helper in $HelperFunctions) {
 $ConfigPath = ./config.json
 
 # Go through our config.json and determine what needs to be installed
-$PackagesToInstall = Get-PackagesToInstall -ConfigPath ./config.json
+$PackagesToInstall = Get-PackagesToInstall -ConfigPath ./config.json -Dev
+
+if ($PackagesToInstall) {
+  Install-WardChoco -Package $PackagesToInstall
+}
