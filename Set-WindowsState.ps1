@@ -1,12 +1,13 @@
 # Install choco
 # TODO make sure this confirms with the user later, right now we're in the wild west
+
 try {
   choco -v
 } catch {
   Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
-$HelperFunctions = Get-ChildItem -Path .\Helpers
+$HelperFunctions = Get-ChildItem -Path .\Helpers -Exclude "New-Json.ps1"
 
 # Import all of our helper functions
 foreach ($Helper in $HelperFunctions) {
@@ -22,7 +23,7 @@ foreach ($Helper in $HelperFunctions) {
 $ConfigPath = ./config.json
 
 # Go through our config.json and determine what needs to be installed
-$PackagesToInstall = Get-PackagesToInstall -ConfigPath ./config.json -Dev
+$PackagesToInstall = Get-PackagesToInstall -ConfigPath ./config.json -Dev -IT -Personal
 
 if ($PackagesToInstall) {
   Install-WardChoco -Package $PackagesToInstall
