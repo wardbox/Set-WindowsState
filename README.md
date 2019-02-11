@@ -1,10 +1,8 @@
 Set-WindowsState
 
 # this script does stuff wahoo
-# Make selection on work/personal (or both)
-# prompt for categories
-# ask if express or custom
-# Install apps based on user choice
+
+# List of apps we wanna support
 - Development
   - Terminal emulators
     - XTerm (non-choco)
