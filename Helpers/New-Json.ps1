@@ -72,4 +72,4 @@ $Json = [ordered]@{
   )
 }
 
-$Json | ConvertTo-Json | Out-File -FilePath .\config.json -Force
+$Json | ConvertTo-Json | Out-File -FilePath .\config_template.json -Force

@@ -1,7 +1,7 @@
 function Uninstall-WardChoco {
   param(
     # Name(s) of choco package(s)
-    [Parameter(Mandatory = $True)]
+    [Parameter(Mandatory = $False)]
     [array]
     $Package,
 
@@ -13,7 +13,7 @@ function Uninstall-WardChoco {
 
   $Date = Get-Date -Format yyyy-MM-dd-HH_MM_ss
 
-  Start-Transcript -Path ".\Logs\Run_$Date.txt" -NoClobber
+  Start-Transcript -Path ".\Logs\UninstallRun_$Date.txt" -NoClobber
 
   if ($Nuke) {
     choco uninstall all -y

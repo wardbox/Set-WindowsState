@@ -7,21 +7,19 @@ function Get-PackagesToInstall {
 
     # Do developer apps
     [Parameter(Mandatory = $false)]
-    [switch]
     $Dev,
 
     # Do IT apps
     [Parameter(Mandatory = $false)]
-    [switch]
     $IT,
 
     # Do personal apps
     [Parameter(Mandatory = $false)]
-    [switch]
     $Personal
+
   )
 
-  if (!($Dev -or $IT -or $Personal)){
+  if (!($Dev -or $IT -or $Personal)) {
     Write-Error "You must declare at least one of the switches - (Dev, IT, or Personal)"
     exit(1)
   }

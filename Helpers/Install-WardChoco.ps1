@@ -8,7 +8,7 @@ function Install-WardChoco {
 
   $Date = Get-Date -Format yyyy-MM-dd-HH_MM_ss
 
-  Start-Transcript -Path ".\Logs\Run_$Date.txt" -NoClobber
+  Start-Transcript -Path ".\Logs\InstallRun_$Date.txt" -NoClobber
 
   foreach ($Application in $Package) {
     try {
