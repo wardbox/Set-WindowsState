@@ -24,13 +24,79 @@ param (
 
 )
 
+$PackagesToInstall = @(
+  "7zip",
+  "adobereader",
+  "atom",
+  "awscli",
+  "azure-cli",
+  "box",
+  "chefdk",
+  "cmder",
+  "conemu",
+  "discord",
+  "docker-cli",
+  "dotnetcore-sdk",
+  "dropbox",
+  "everything",
+  "fiddler",
+  "filezilla",
+  "firefox",
+  "f.lux",
+  "gimp",
+  "git",
+  "github-desktop",
+  "gitkraken",
+  "golang",
+  "googlechrome",
+  "googledrive",
+  "greenshot",
+  "hyper",
+  "kubernetes-cli",
+  "malwarebytes",
+  "mysql.workbench",
+  "nodejs",
+  "notepadplusplus",
+  "postman",
+  "powershell-core",
+  "putty",
+  "python",
+  "python2",
+  "rdcman",
+  "rsat",
+  "ruby",
+  "rufus",
+  "sharex",
+  "skype",
+  "slack",
+  "sourcetree",
+  "spotify",
+  "sql-server-management-studio",
+  "sublimetext3",
+  "steam",
+  "sysinternals",
+  "terraform",
+  "vagrant",
+  "virtualbox",
+  "visualstudio2017enterprise",
+  "vmwareworkstation",
+  "vlc",
+  "vscode",
+  "windirstat",
+  "winscp",
+  "winrar",
+  "wireshark"
+  "yarn",
+  "zoom"
+)
+
 try {
   choco -v
 } catch {
   Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
-$HelperFunctions = Get-ChildItem -Path .\Helpers -Exclude "New-Json.ps1"
+$HelperFunctions = Get-ChildItem -Path $PSScriptRoot\Helpers -Exclude "New-Json.ps1"
 
 # Import all of our helper functions
 foreach ($Helper in $HelperFunctions) {
@@ -50,16 +116,23 @@ if ($Uninstall) {
   if ($UserChoice -eq "nuke") {
     Uninstall-WardChoco -Nuke
   } elseif ($UserChoice -eq "selected") {
-    $PackagesToUninstall = Get-PackagesToInstall -ConfigPath $ConfigPath @Type
     Uninstall-WardChoco -Package $PackagesToUninstall
   }
   exit(1)
 }
 
-# Go through our config.json and determine what needs to be installed
-
-$PackagesToInstall = Get-PackagesToInstall -ConfigPath $ConfigPath -Dev $Dev -IT $IT -Personal $Personal
-
 if ($PackagesToInstall) {
   Install-WardChoco -Package $PackagesToInstall
+
+  # I STOLE THIS FROM W4RH4WK:
+  # https://github.com/W4RH4WK/Debloat-Windows-10
+  # Thank you warhawk I'll buy you a beer if we ever meet bud.
+  # adapted from https://blogs.technet.microsoft.com/heyscriptingguy/2013/11/23/using-scheduled-tasks-and-scheduled-jobs-in-powershell/
+  $ScheduledJob = @{
+    Name               = "Chocolatey Daily Upgrade"
+    ScriptBlock        = {choco upgrade all -y}
+    Trigger            = New-JobTrigger -Daily -at 2am
+    ScheduledJobOption = New-ScheduledJobOption -RunElevated -MultipleInstancePolicy StopExisting -RequireNetwork
+  }
+  Register-ScheduledJob @ScheduledJob
 }
