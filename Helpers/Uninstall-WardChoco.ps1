@@ -20,7 +20,7 @@ function Uninstall-WardChoco {
   } else {
     foreach ($Application in $Package) {
       try {
-        choco uninstall -y $Application
+        choco uninstall -y $Application --limit-output --all-versions
       } catch {
         Write-Error $error[0]
       }
@@ -28,4 +28,5 @@ function Uninstall-WardChoco {
   }
 
   Stop-Transcript
+
 }

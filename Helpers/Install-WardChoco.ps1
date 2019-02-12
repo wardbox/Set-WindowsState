@@ -12,11 +12,12 @@ function Install-WardChoco {
 
   foreach ($Application in $Package) {
     try {
-      choco install -y $Application
+      choco install -y $Application --limit-output
     } catch {
       Write-Error $error[0]
     }
   }
 
   Stop-Transcript
+
 }
