@@ -24,6 +24,8 @@ param (
 
 )
 
+New-Item -Path "C:\git" -ItemType Directory
+
 $PackagesToInstall = @(
   "7zip",
   "adobereader",
@@ -107,9 +109,6 @@ foreach ($Helper in $HelperFunctions) {
     exit(1)
   }
 }
-
-# This is your config.json file which can be anywhere
-$ConfigPath = "./config.json"
 
 if ($Uninstall) {
   [ValidateSet("nuke", "selected")]$UserChoice = Read-Host -Prompt "Do you want to uninstall everything or just the selected packages? [nuke] [selected]"
